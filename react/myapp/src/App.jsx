@@ -1,24 +1,14 @@
-import { useState } from "react";
+import { useRef } from "react";
 import "./App.css";
-import { flushSync } from "react-dom";
-import Counter from "./Counter";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const inputRef = useRef(null);
 
-  const increment = () => {
-    flushSync(() => {
-      setCount((count) => count + 1);
-    });
-  };
   return (
     <>
-      <p>Counters: {count}</p>
-      <button onClick={increment}>Increment</button>
-
-      <Counter />
+      <input ref={inputRef} type />
+      <button onClick={() => inputRef.current.focus()}>Focus input</button>
     </>
   );
 }
-
 export default App;
