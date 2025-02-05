@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import { flushSync } from "react-dom";
+import Counter from "./Counter";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -14,6 +15,8 @@ function App() {
     <>
       <p>Counters: {count}</p>
       <button onClick={increment}>Increment</button>
+
+      <Counter />
     </>
   );
 }
