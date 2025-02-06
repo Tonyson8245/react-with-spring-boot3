@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import useTitle from "./useTitle";
+import useTitle from "../hooks/useTitle";
 
 function Counter() {
   const [count, setCount] = useState(0);
