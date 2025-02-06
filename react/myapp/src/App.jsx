@@ -1,13 +1,13 @@
 import "./App.css";
 import AuthContext from "./context/AuthContext";
-import MyList from "./components/MyList";
+import MyTable from "./components/MyTable";
 
 function App() {
   const userName = "john";
   return (
     <>
       <AuthContext.Provider value={userName}>
-        <MyList />
+        <MyTable />
       </AuthContext.Provider>
     </>
   );
