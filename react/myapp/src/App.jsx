@@ -1,13 +1,13 @@
 import "./App.css";
 import AuthContext from "./context/AuthContext";
-import MyComponent from "./components/MyComponent";
+import MyList from "./components/MyList";
 
 function App() {
   const userName = "john";
   return (
     <>
       <AuthContext.Provider value={userName}>
-        <MyComponent />
+        <MyList />
       </AuthContext.Provider>
     </>
   );
