@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
+import useTitle from "./useTitle";
 
 function Counter() {
   const [count, setCount] = useState(0);
+  useTitle(`You clicked ${count} times`);
 
   useEffect(() => {
     console.log("Counter value is now " + count);
