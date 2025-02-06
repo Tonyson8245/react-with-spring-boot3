@@ -1,12 +1,15 @@
 function MyComponent() {
-  const handleClick = () => {
-    alert("Button clicked");
+  const handleClick = (event) => {
+    event.preventDefault();
+    alert("Form submit");
   };
 
   return (
-    <div>
-      <button onClick={handleClick}>Press me</button>
-    </div>
+    <>
+      <form onSubmit={handleClick}>
+        <input type="submit" value="Submit" />
+      </form>
+    </>
   );
 }
 export default MyComponent;
