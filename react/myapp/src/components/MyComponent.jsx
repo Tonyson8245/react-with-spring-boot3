@@ -1,8 +1,12 @@
-import React from "react";
-import AuthContext from "../context/AuthContext";
 function MyComponent() {
-  const authContext = React.useContext(AuthContext);
+  const handleClick = () => {
+    alert("Button clicked");
+  };
 
-  return <>Welcome {authContext}</>;
+  return (
+    <div>
+      <button onClick={handleClick}>Press me</button>
+    </div>
+  );
 }
 export default MyComponent;
