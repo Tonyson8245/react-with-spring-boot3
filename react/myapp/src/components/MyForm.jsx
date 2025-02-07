@@ -1,14 +1,12 @@
 import { useState } from "react";
 
 function MyForm() {
-  const [user, setUser] = useState({ firstName: "", lastName: "", email: "" });
-
-  const handleChange = (event) => {
-    setUser({ ...user, [event.target.name]: event.target.value });
-  };
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
 
   const handleSubmit = (event) => {
-    alert(`Hello ${user.firstName} ${user.lastName}!`);
+    alert(`Hello ${firstName} ${lastName}!`);
     event.preventDefault();
   };
 
@@ -17,25 +15,22 @@ function MyForm() {
       <labe>First name</labe>
       <input
         type="text"
-        name="firstName"
-        value={user.firstName}
-        onChange={handleChange}
+        value={firstName}
+        onChange={(e) => setFirstName(e.target.value)}
       />
       <br />
       <label>Last name</label>
       <input
         type="text"
-        name="lastName"
-        value={user.lastName}
-        onChange={handleChange}
+        value={lastName}
+        onChange={(e) => setLastName(e.target.value)}
       />
       <br />
       <label>Email</label>
       <input
         type="email"
-        name="email"
-        value={user.email}
-        onChange={handleChange}
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
       />
       <br />
       <input type="submit" value="Submit" />
