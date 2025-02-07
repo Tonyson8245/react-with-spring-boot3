@@ -1,22 +1,45 @@
 import { useState } from "react";
 
 function MyForm() {
-  const [text, setText] = useState("");
+  const [user, setUser] = useState({ firstName: "", lastName: "", email: "" });
 
-  // 입력 요소의 내용이 변경 되면 값을 상태에 저장
   const handleChange = (event) => {
-    setText(event.target.value);
+    setUser({ ...user, [event.target.name]: event.target.value });
   };
 
   const handleSubmit = (event) => {
-    alert(`You typed: ${text}`);
+    alert(`Hello ${user.firstName} ${user.lastName}!`);
     event.preventDefault();
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <input type="text" onChange={handleChange} value={text} />
-      <input type="submit" value="Press me" />
+      <labe>First name</labe>
+      <input
+        type="text"
+        name="firstName"
+        value={user.firstName}
+        onChange={handleChange}
+      />
+      <br />
+      <label>Last name</label>
+      <input
+        type="text"
+        name="lastName"
+        value={user.lastName}
+        onChange={handleChange}
+      />
+      <br />
+      <label>Email</label>
+      <input
+        type="email"
+        name="email"
+        value={user.email}
+        onChange={handleChange}
+      />
+      <br />
+      <input type="submit" value="Submit" />
+      <br />
     </form>
   );
 }
