@@ -1,10 +1,10 @@
 import "./App.css";
-import MyForm from "./components/MyForm";
+import HelloComponent from "./components/HelloComponent";
 
 function App() {
   return (
     <>
-      <MyForm />
+      <HelloComponent name="Mary" age={12} />
     </>
   );
 }
