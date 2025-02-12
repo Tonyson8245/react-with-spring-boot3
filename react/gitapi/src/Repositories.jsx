@@ -9,10 +9,11 @@ function Repositories() {
     return response.data.items;
   };
 
-  const { isLoading, isError, data } = useQuery(
-    ["repositories"],
-    getRepositories
-  );
+  const { isLoading, isError, data } = useQuery({
+    queryKey: ["repositories"],
+    queryFn: getRepositories,
+    staleTime: 60 * 1000,
+  });
 
   if (isLoading) return <>Loading...</>;
 

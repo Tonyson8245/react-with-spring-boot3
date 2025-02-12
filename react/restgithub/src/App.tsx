@@ -1,6 +1,16 @@
 import "./App.css";
 import { useState } from "react";
 import axios from "axios";
+import { AgGridReact } from "ag-grid-react";
+import {
+  AllCommunityModule,
+  ModuleRegistry,
+  ColDef,
+  ICellRendererParams,
+} from "ag-grid-community";
+
+// Register all Community features
+ModuleRegistry.registerModules([AllCommunityModule]);
 
 type Repository = {
   id: number;
@@ -11,6 +21,19 @@ type Repository = {
 function App() {
   const [keyword, setKeyword] = useState("");
   const [repodata, setRepodata] = useState<Repository[]>([]);
+
+  const [columnDefs] = useState<ColDef[]>([
+    { field: "id", sortable: true, filter: true },
+    { field: "full_name", sortable: true, filter: true },
+    { field: "html_url", sortable: true, filter: true },
+    {
+      headerName: "Action",
+      field: "full_name",
+      cellRenderer: (params: ICellRendererParams) => {
+        return <button onClick={() => alert(params.value)}>Press me</button>;
+      },
+    },
+  ]);
 
   const handleClick = () => {
     axios
@@ -25,22 +48,14 @@ function App() {
     <>
       <input value={keyword} onChange={(e) => setKeyword(e.target.value)} />
       <button onClick={handleClick}>Fetch</button>
-      {repodata.length == 0 ? (
-        <p>No data available</p>
-      ) : (
-        <table>
-          <tbody>
-            {repodata.map((repo) => (
-              <tr key={repo.id}>
-                <td>{repo.full_name}</td>
-                <td>
-                  <a href={repo.html_url}>{repo.html_url}</a>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
+      <div style={{ height: 500 }}>
+        <AgGridReact
+          rowData={repodata}
+          columnDefs={columnDefs}
+          pagination={true}
+          paginationPageSize={20}
+        />
+      </div>
     </>
   );
 }
