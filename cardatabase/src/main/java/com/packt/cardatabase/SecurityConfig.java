@@ -49,12 +49,15 @@ public class SecurityConfig {
 		return authConfig.getAuthenticationManager();
 		
 	}
-	
-	@Bean
-	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
 
-		http.csrf((csrf) -> csrf.disable()).cors(withDefaults())
-		.authorizeHttpRequests((authorizeHttpRequests)-> authorizeHttpRequests.anyRequest().permitAll());
+	@Bean
+	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+	    http
+	        .csrf(csrf -> csrf.disable()) // CSRF 비활성화
+	        .cors(cors -> cors.configurationSource(configurationSource())) // CORS 설정 적용
+	        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+	        .authorizeHttpRequests(auth -> auth.anyRequest().permitAll());
+
 		
 		/*		http.csrf((csrf) -> csrf.disable())
 			.cors(withDefaults())
@@ -72,17 +75,24 @@ public class SecurityConfig {
 	// 클래스 내에 전역 CORS 필터 추
 	@Bean
 	public CorsConfigurationSource configurationSource() {
-		UrlBasedCorsConfigurationSource source = 
-				new UrlBasedCorsConfigurationSource();
-		CorsConfiguration config = new CorsConfiguration();
-		config.setAllowedOrigins(Arrays.asList("*"));
-		config.setAllowedMethods(Arrays.asList("*"));
-		config.setAllowedHeaders(Arrays.asList("*"));
-		config.setAllowCredentials(false);
-		config.applyPermitDefaultValues();
-		
-		source.registerCorsConfiguration("/**", config);
-		return source;
+	    CorsConfiguration config = new CorsConfiguration();
+	    
+	    // 허용할 프론트엔드 도메인 지정 (React 앱 주소)
+	    config.setAllowedOrigins(Arrays.asList("http://localhost:5173")); 
+
+	    // 허용할 HTTP 메서드
+	    config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+
+	    // 허용할 헤더 설정
+	    config.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
+
+	    // 인증 정보 포함 가능하도록 설정
+	    config.setAllowCredentials(true);
+
+	    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+	    source.registerCorsConfiguration("/**", config);
+
+	    return source;
 	}
 }
 
