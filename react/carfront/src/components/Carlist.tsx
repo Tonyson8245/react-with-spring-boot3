@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { DataGrid, GridColDef, GridCellParams } from "@mui/x-data-grid";
 import { Snackbar } from "@mui/material";
+import AddCar from "./AddCar";
 
 function Carlist() {
   const [open, setOpen] = useState(false);
@@ -71,6 +72,7 @@ function Carlist() {
   } else {
     return (
       <>
+        <AddCar />
         <DataGrid
           rows={data}
           columns={columns}
