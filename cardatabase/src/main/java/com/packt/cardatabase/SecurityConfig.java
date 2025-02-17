@@ -78,7 +78,7 @@ public class SecurityConfig {
 	    CorsConfiguration config = new CorsConfiguration();
 	    
 	    // 허용할 프론트엔드 도메인 지정 (React 앱 주소)
-	    config.setAllowedOrigins(Arrays.asList("http://localhost:5173")); 
+	    config.setAllowedOrigins(Arrays.asList("http://localhost:5173","http://localhost:3000")); 
 
 	    // 허용할 HTTP 메서드
 	    config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
