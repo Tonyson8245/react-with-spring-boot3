@@ -2,10 +2,17 @@ import { getCars, deleteCar } from "../api/carapi";
 import { CarResponse } from "../types";
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { DataGrid, GridColDef, GridCellParams } from "@mui/x-data-grid";
+import {
+  DataGrid,
+  GridColDef,
+  GridCellParams,
+  GridToolbar,
+} from "@mui/x-data-grid";
 import { Snackbar } from "@mui/material";
 import AddCar from "./AddCar";
 import EditCar from "./EditCar";
+import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 function Carlist() {
   const [open, setOpen] = useState(false);
@@ -58,7 +65,9 @@ function Carlist() {
       filterable: false,
       disableColumnMenu: true,
       renderCell: (params: GridCellParams) => (
-        <button
+        <IconButton
+          aria-label="delete"
+          size="small"
           onClick={() => {
             if (
               window.confirm(
@@ -69,8 +78,8 @@ function Carlist() {
             }
           }}
         >
-          Delete
-        </button>
+          <DeleteIcon />
+        </IconButton>
       ),
     },
   ];
@@ -89,6 +98,7 @@ function Carlist() {
           disableRowSelectionOnClick={true}
           hideFooterPagination
           getRowId={(row) => row._links.self.href}
+          slots={{ toolbar: GridToolbar }}
         />
         <Snackbar
           open={open}
