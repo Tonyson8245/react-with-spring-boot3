@@ -34,6 +34,7 @@ describe("Carlist tests", () => {
     render(<Carlist />, { wrapper });
 
     await waitFor(() => screen.getByText(/New Car/i));
+
     await userEvent.click(screen.getByText(/New Car/i));
     expect(screen.getByText(/Save/i)).toBeInTheDocument();
   });
