@@ -56,7 +56,9 @@ public class SecurityConfig {
 	        .csrf(csrf -> csrf.disable()) // CSRF 비활성화
 	        .cors(cors -> cors.configurationSource(configurationSource())) // CORS 설정 적용
 	        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-	        .authorizeHttpRequests(auth -> auth.anyRequest().permitAll());
+	        .authorizeHttpRequests((authorizeHttpRequests)->authorizeHttpRequests.requestMatchers(HttpMethod.POST,"/login").permitAll().anyRequest().authenticated())
+	        .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class)
+	        .exceptionHandling((exceptionHandling)->exceptionHandling.authenticationEntryPoint(exceptionHandler));
 
 		
 		/*		http.csrf((csrf) -> csrf.disable())
