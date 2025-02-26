@@ -34,8 +34,13 @@ function Login() {
       });
   };
 
+  const handleLogout = () => {
+    setAuth(false);
+    sessionStorage.removeItem("jwt");
+  };
+
   if (isAuthenticated) {
-    return <Carlist />;
+    return <Carlist logOut={handleLogout} />;
   } else
     return (
       <>
